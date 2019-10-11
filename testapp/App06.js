@@ -39,6 +39,26 @@ class App04 extends Component {
             return <Item data={color} id={i} key={i + color} />;
           })}
         </View>
+        <View style={styles.left}>
+          {this.state.colors.map((color, i) => {
+            return <Item data={color} id={i} key={color + i} />;
+          })}
+        </View>
+        <View style={styles.right}>
+          {this.state.colors.map((color, i) => {
+            return <Item data={color} id={i} key={i + color} />;
+          })}
+        </View>
+        <View style={styles.left}>
+          {this.state.colors.map((color, i) => {
+            return <Item data={color} id={i} key={color + i} />;
+          })}
+        </View>
+        <View style={styles.right}>
+          {this.state.colors.map((color, i) => {
+            return <Item data={color} id={i} key={i + color} />;
+          })}
+        </View>
       </View>
     );
   }
@@ -56,7 +76,7 @@ class Item extends Component {
   render() {
     return (
       <View style={{ backgroundColor: this.state.color, flex: 1 }}>
-        <Text> Item {this.state.index}</Text>
+        <Text style={{ alignSelf: "center" }}>{this.state.index}</Text>
       </View>
     );
   }

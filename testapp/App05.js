@@ -31,12 +31,16 @@ class App04 extends Component {
       <View style={styles.container}>
         <View style={styles.left}>
           {this.state.colors.map((color, i) => {
-            return <Item data={color} id={i} key={color + i} />;
+            return (
+              <Item color={color} id={i} key={color + i} tcolor={"white"} />
+            );
           })}
         </View>
         <View style={styles.right}>
           {this.state.colors.map((color, i) => {
-            return <Item data={color} id={i} key={i + color} />;
+            return (
+              <Item color={color} id={i} key={i + color} tcolor={"black"} />
+            );
           })}
         </View>
       </View>
@@ -47,16 +51,12 @@ class App04 extends Component {
 class Item extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      color: this.props.data,
-      index: this.props.id
-    };
+    console.log(props);
   }
-
   render() {
     return (
-      <View style={{ backgroundColor: this.state.color, flex: 1 }}>
-        <Text> Item {this.state.index}</Text>
+      <View style={{ backgroundColor: this.props.color, flex: 1 }}>
+        <Text style={{ color: this.props.tcolor }}> Item {this.props.id}</Text>
       </View>
     );
   }

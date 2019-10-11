@@ -13,7 +13,7 @@ class App03 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      colors: ["red", "blue", "pink", "yellow", "green", "brown"]
+      colors: ["#FF0083", "#2DBDE8", "#04CE9B", "#FFC709", "#FFCFC5", "#9CBAED"]
     };
   }
 
