@@ -65,15 +65,16 @@ class App extends Component {
     } else if (val == "=") {
       let option = "";
       if (
-        this.state.currentValue.length == 0 ||
+        this.state.currentValue.toString().length == 0 ||
         isNaN(this.state.currentValue.substr(-1)) ||
         (isNaN(this.state.currentValue.substr(0, 2)) &&
-          this.state.currentValue != parseInt("-0")) ||
+          isNaN(this.state.currentValue.substr(0, 1))) ||
         this.state.currentValue.includes("00.") ||
         parseFloat(eval(this.state.currentValue)) == Infinity ||
-        parseFloat(eval(this.state.currentValue)) == -Infinity
+        parseFloat(eval(this.state.currentValue)) == -Infinity ||
+        isNaN(this.state.previousValue)
       ) {
-        option = "#";
+        option = "err!";
       } else {
         option = parseFloat(eval(this.state.currentValue));
         if (option == "2137") alert("JP2GMD!");
