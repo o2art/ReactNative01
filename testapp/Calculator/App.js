@@ -44,7 +44,8 @@ class App extends Component {
     this.state = {
       currentValue: "",
       previousValue: "",
-      result: ""
+      result: "",
+      blockDot: false
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -52,7 +53,10 @@ class App extends Component {
   }
 
   handleClick(val) {
-    if (val != "C" && val != "=") {
+    if (val != "C" && val != "=" && val != ".") {
+      if (val == "/" || val == "*" || val == "+" || val == "-") {
+        this.state.blockDot = false;
+      }
       this.setState({
         currentValue: this.state.currentValue + val,
         previousValue: val,
@@ -61,18 +65,36 @@ class App extends Component {
     } else if (val == "=") {
       let option = "";
       if (
+        this.state.currentValue.length == 0 ||
         isNaN(this.state.currentValue.substr(-1)) ||
-        isNaN(this.state.currentValue.substr(0, 1)) ||
-        this.state.currentValue.includes("00.")
+        (isNaN(this.state.currentValue.substr(0, 2)) &&
+          this.state.currentValue != parseInt("-0")) ||
+        this.state.currentValue.includes("00.") ||
+        parseFloat(eval(this.state.currentValue)) == Infinity ||
+        parseFloat(eval(this.state.currentValue)) == -Infinity
       ) {
-        option = "błąd";
+        option = "#";
       } else {
-        option = parseFloat(eval(this.state.currentValue)).toFixed(1);
+        option = parseFloat(eval(this.state.currentValue));
+        if (option == "2137") alert("JP2GMD!");
+        if (option == "69") alert("r00chańsko");
+        if (option == "2115") alert("GENG GENG GENG");
       }
       this.setState({
         result: option
       });
+    } else if (val == ".") {
+      if (this.state.blockDot || this.state.previousValue == ".") return;
+      else {
+        this.setState({
+          currentValue: this.state.currentValue + val,
+          previousValue: val,
+          result: "",
+          blockDot: true
+        });
+      }
     } else {
+      if (this.state.previousValue == ".") this.state.blockDot = false;
       this.setState({
         currentValue: this.state.currentValue.slice(
           0,
@@ -90,7 +112,9 @@ class App extends Component {
   clear() {
     this.setState({
       currentValue: "",
-      result: ""
+      previousValue: "",
+      result: "",
+      blockDot: false
     });
   }
 

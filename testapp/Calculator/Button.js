@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    backgroundColor: "#3c3c3c",
+    backgroundColor: "#9d9d9d",
     justifyContent: "center",
     alignItems: "center",
     borderColor: "red",
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     margin: 2
   },
   special: {
-    backgroundColor: "#575757"
+    backgroundColor: "#676767"
   }
 });
 
