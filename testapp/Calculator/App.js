@@ -45,7 +45,8 @@ class App extends Component {
       currentValue: "",
       previousValue: "",
       result: "",
-      blockDot: false
+      blockDot: false,
+      operator: true
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -55,7 +56,13 @@ class App extends Component {
   handleClick(val) {
     if (val != "C" && val != "=" && val != ".") {
       if (val == "/" || val == "*" || val == "+" || val == "-") {
+        if (this.state.operator) return;
+        else {
+          this.state.operator = true;
+        }
         this.state.blockDot = false;
+      } else {
+        this.state.operator = false;
       }
       this.setState({
         currentValue: this.state.currentValue + val,
@@ -64,20 +71,27 @@ class App extends Component {
       });
     } else if (val == "=") {
       let option = "";
-      if (
-        this.state.currentValue.toString().length == 0 ||
-        isNaN(this.state.currentValue.substr(-1)) ||
-        (isNaN(this.state.currentValue.substr(0, 2)) &&
-          isNaN(this.state.currentValue.substr(0, 1))) ||
-        this.state.currentValue.includes("00.") ||
-        parseFloat(eval(this.state.currentValue)) == Infinity ||
-        parseFloat(eval(this.state.currentValue)) == -Infinity ||
-        isNaN(this.state.previousValue)
-      ) {
+      try {
+        if (
+          !this.state.currentValue.toString().length == 0 ||
+          !isNaN(this.state.currentValue.substr(-1)) ||
+          !(
+            isNaN(this.state.currentValue.substr(0, 2)) &&
+            isNaN(this.state.currentValue.substr(0, 1))
+          ) ||
+          !this.state.currentValue.includes("00.") ||
+          !parseFloat(eval(this.state.currentValue)) == Infinity ||
+          !parseFloat(eval(this.state.currentValue)) == -Infinity ||
+          !isNaN(this.state.previousValue) ||
+          !this.state.currentValue.includes("/*") ||
+          !this.state.currentValue.includes("*/")
+        ) {
+          option = parseFloat(eval(this.state.currentValue));
+        }
+      } catch (err) {
         option = "err!";
-      } else {
-        option = parseFloat(eval(this.state.currentValue));
       }
+
       this.setState({
         result: option
       });
