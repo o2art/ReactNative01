@@ -77,9 +77,6 @@ class App extends Component {
         option = "err!";
       } else {
         option = parseFloat(eval(this.state.currentValue));
-        if (option == "2137") alert("JP2GMD!");
-        if (option == "69") alert("r00chańsko");
-        if (option == "2115") alert("GENG GENG GENG");
       }
       this.setState({
         result: option
